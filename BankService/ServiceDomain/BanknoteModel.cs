@@ -3,7 +3,7 @@
 namespace BankService.ServiceDomain
 {
     [DataContract]
-    public class BanknoteModel
+    public sealed class BanknoteModel
     {
         private int _denomination;
         private long _quantity;
@@ -20,6 +20,12 @@ namespace BankService.ServiceDomain
         {
             get { return _quantity; }
             set { _quantity = value; }
+        }
+
+        public BanknoteModel(int denomination, long quantity)
+        {
+            Denomination = denomination;
+            Quantity = quantity;
         }
     }
 }

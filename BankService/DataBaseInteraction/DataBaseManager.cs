@@ -2,11 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace BankService.DataBaseInteraction
 {
-    public class DataBaseManager
+    public sealed class DataBaseManager
     {
         public bool AddBanknote(int denomination, long quantity)
         {
@@ -30,7 +29,7 @@ namespace BankService.DataBaseInteraction
             }
         }
 
-        public List<BanknoteModel> GetAllInfo()
+        public List<BanknoteModel> GetAllBanknotes()
         {
             List<BanknoteModel> banknotes = new List<BanknoteModel>();
 
@@ -38,11 +37,22 @@ namespace BankService.DataBaseInteraction
             {
                 foreach (var item in bankDBEntities.Banknotes)
                 {
-                    banknotes.Add(new BanknoteModel { Denomination = item.Denomination, Quantity = item.Quantity });
+                    banknotes.Add(new BanknoteModel(item.Denomination, item.Quantity));
                 }
             }
 
             return banknotes;
+        }
+
+        public BanknoteModel GetBanknote(int denomination)
+        {
+            using (BankDBEntities bankDBEntities = new BankDBEntities())
+            {
+                return bankDBEntities.Banknotes
+                    .Where(b => b.Denomination == denomination)
+                    .Select(b => new BanknoteModel(b.Denomination, b.Quantity))
+                    .FirstOrDefault();
+            }
         }
     }
 }

@@ -7,9 +7,12 @@ namespace BankService.ServiceDomain
     public interface IBanknotesService
     {
         [OperationContract]
-        List<BanknoteModel> GetAllInfo();
+        List<BanknoteModel> GetAllBanknotes();
 
         [OperationContract]
         bool AddBanknote(int denomination, long quantity);
+
+        [OperationContract]
+        BanknoteModel GetBanknote(int denomination);
     }
 }
