@@ -50,6 +50,7 @@ namespace BankService.DataBaseInteraction
             {
                 return bankDBEntities.Banknotes
                     .Where(b => b.Denomination == denomination)
+                    .ToArray()
                     .Select(b => new BanknoteModel(b.Denomination, b.Quantity))
                     .FirstOrDefault();
             }
