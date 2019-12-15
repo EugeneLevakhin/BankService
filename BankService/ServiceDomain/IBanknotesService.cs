@@ -10,7 +10,7 @@ namespace BankService.ServiceDomain
         List<BanknoteModel> GetAllBanknotes();
 
         [OperationContract]
-        bool AddBanknote(int denomination, long quantity);
+        bool AddOrChangeBanknote(int denomination, long quantity);
 
         [OperationContract]
         BanknoteModel GetBanknote(int denomination);

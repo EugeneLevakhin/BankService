@@ -18,9 +18,9 @@ namespace BankService
             return _dataBaseManager.GetAllBanknotes();
         }
 
-        public bool AddBanknote(int denomination, long quantity)
+        public bool AddOrChangeBanknote(int denomination, long quantity)
         {
-            return _dataBaseManager.AddBanknote(denomination, quantity);
+            return _dataBaseManager.AddOrChangeBanknote(denomination, quantity);
         }
 
         public BanknoteModel GetBanknote(int denomination)

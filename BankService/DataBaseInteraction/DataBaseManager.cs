@@ -7,13 +7,22 @@ namespace BankService.DataBaseInteraction
 {
     public sealed class DataBaseManager
     {
-        public bool AddBanknote(int denomination, long quantity)
+        public bool AddOrChangeBanknote(int denomination, long quantity)
         {
             BankDBEntities bankDBEntities = new BankDBEntities();
 
             try
             {
-                bankDBEntities.Banknotes.Add(new Banknote { Denomination = denomination, Quantity = quantity });
+                var banknote = bankDBEntities.Banknotes.FirstOrDefault(b => b.Denomination == denomination);
+
+                if (banknote != null)
+                {
+                    banknote.Quantity = quantity;
+                }
+                else
+                {
+                    bankDBEntities.Banknotes.Add(new Banknote { Denomination = denomination, Quantity = quantity });
+                }
 
                 bankDBEntities.SaveChanges();
 
